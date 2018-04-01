@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import exceptions.WriterException;
+
 public class WriterForStdOut extends AbstractWriterForProcessor{
 
 	public static final Logger logger = Logger.getLogger(WriterForStdOut.class);
@@ -29,21 +31,24 @@ public class WriterForStdOut extends AbstractWriterForProcessor{
 	}
 	
 	
+	@Override
+	public void writeListOfFormatData(List<String> output) throws WriterException {
+		if(output != null) {
+			for(String result : output) {
+				writeFormatData(result);
+			}
+		}
+	}
 	
 	@Override
-	public void writeListOfFormatData(List<String> output) {
-		
+	public void writeFormatData(String result) throws WriterException {
 		try {
-			if(output != null) {
-				for(String result : output) {
-					bw.write(result);
-					bw.flush();
-				}
-			}
-			
+			bw.write(result);
+			bw.flush();
 		} catch (IOException ioe) {
 			logger.error("Exception occurred while writing data to BufferedWriter", ioe);
+			throw new WriterException(ioe);
 		}
-		
 	}
+
 }

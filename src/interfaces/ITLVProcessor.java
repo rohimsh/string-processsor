@@ -2,6 +2,9 @@ package interfaces;
 
 import java.util.List;
 
+import exceptions.ProcesssorException;
+import exceptions.ReaderException;
+import exceptions.WriterException;
 import models.FormatData;
 
 public interface ITLVProcessor {
@@ -10,7 +13,6 @@ public interface ITLVProcessor {
 	
 	public String processFormat(FormatData format);
 	
-	public void process();
+	public void process() throws ProcesssorException, WriterException, ReaderException;
 
-	
 }

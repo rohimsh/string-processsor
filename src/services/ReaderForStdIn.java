@@ -4,10 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import exceptions.ReaderException;
 import models.FormatData;
 import models.ProcessType;
 
@@ -31,7 +33,7 @@ public class ReaderForStdIn extends AbstractReaderForProcessor{
 	}
 
 	@Override
-	public List<FormatData> readListOfFormatData() {
+	public List<FormatData> readListOfFormatData() throws ReaderException {
 		
 		try {
 			String input = br.readLine();
@@ -45,9 +47,11 @@ public class ReaderForStdIn extends AbstractReaderForProcessor{
 			} 
 		} catch (IOException ioe) {
 			logger.error("Exception occurred while reading data from BufferedReader", ioe);
+			throw new ReaderException(ioe);
 		}
 		
 		return null;
 	}
+	
 	
 }

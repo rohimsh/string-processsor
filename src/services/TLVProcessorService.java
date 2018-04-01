@@ -6,7 +6,10 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
+import exceptions.ProcesssorException;
+import exceptions.ReaderException;
 import exceptions.ReaderNotConfiguredException;
+import exceptions.WriterException;
 import exceptions.WriterNotConfiguredException;
 import models.FormatData;
 import models.IOType;
@@ -21,7 +24,7 @@ public class TLVProcessorService extends AbstractTLVProcessor{
 
 
 	@Override
-	public void process() {
+	public void process() throws ProcesssorException, WriterException, ReaderException {
 		try {
 
 			logger.info("- x - Start of Output - x -");
@@ -33,12 +36,22 @@ public class TLVProcessorService extends AbstractTLVProcessor{
 			}
 			logger.info("- x - End of Output - x -");
 			
+		} catch (ReaderException re) {
+			logger.error("Error occurred while reading formats from InputStream: ", re);
+			throw new ReaderException(re);
+		} catch (WriterException we) {
+			logger.error("Error occurred while writing formats to OutputStream: ", we);
+			throw new WriterException(we);
 		} catch (Exception e) {
 			logger.error("Error occurred while processing formats from InputStream: ", e);
+			throw new ProcesssorException(e);
 		} finally {
 			closeStreams();
 		}
 	}
+	
+	
+
 	
 	
 	@Override

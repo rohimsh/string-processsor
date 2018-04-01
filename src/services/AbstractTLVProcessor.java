@@ -5,7 +5,10 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import exceptions.ProcesssorException;
+import exceptions.ReaderException;
 import exceptions.ReaderNotConfiguredException;
+import exceptions.WriterException;
 import exceptions.WriterNotConfiguredException;
 import interfaces.IReaderForProcessor;
 import interfaces.ITLVProcessor;
@@ -62,7 +65,7 @@ public class AbstractTLVProcessor implements ITLVProcessor{
 	}
 
 	@Override
-	public void process() {
+	public void process() throws ProcesssorException, WriterException, ReaderException {
 	}
 
 	public void closeStreams() {
