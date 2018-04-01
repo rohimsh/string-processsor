@@ -15,4 +15,9 @@ public class AbstractWriterForProcessor implements IWriterForProcessor{
 	public void writeFormatData(String result) {
 	}
 
+	@Override
+	public void close() {
+	}
+
+	
 }

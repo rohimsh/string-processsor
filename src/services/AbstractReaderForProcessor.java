@@ -4,18 +4,22 @@ import java.util.Collections;
 import java.util.List;
 
 import interfaces.IReaderForProcessor;
-import models.Format;
+import models.FormatData;
 
 public class AbstractReaderForProcessor implements IReaderForProcessor{
 
 	@Override
-	public List<Format> readListOfFormatData() {
+	public List<FormatData> readListOfFormatData() {
 		return Collections.EMPTY_LIST;
 	}
 	
 	@Override
-	public Format readFormatData() {
+	public FormatData readFormatData() {
 		return null;
+	}
+
+	@Override
+	public void close() {
 	}
 	
 

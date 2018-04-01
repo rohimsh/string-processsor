@@ -1,12 +1,14 @@
 0 [main] INFO clients.DriverForTLVProcessor  - Configgered logging...
-1 [main] INFO clients.DriverForTLVProcessor  - Starting TLVProcessorService...
-4 [main] INFO clients.DriverForTLVProcessor  - Processing TLVProcessorService for Input Type: STDIN and Output Type: STDOUT
-4 [main] INFO services.TLVProcessorService  - - x - Start of Output - x -
+0 [main] INFO clients.DriverForTLVProcessor  - Starting TLVProcessorService...
+0 [main] INFO clients.DriverForTLVProcessor  - Processing TLVProcessorService for Input Type: STDIN and Output Type: STDOUT
+0 [main] INFO services.TLVProcessorService  - - x - Start of Output - x -
 UPPRCS-ABCDE
 REPLCE-THIS STRING
 UPPRCS-ABCDEFGH
+REPLCE-THIS STRING
+REPLCE-THIS STRING
 Type not valid
 UPPRCS-1234
-6 [main] INFO services.TLVProcessorService  - - x - End of Output - x -
-6 [main] INFO clients.DriverForTLVProcessor  - Processed TLVProcessorService...
-6 [main] INFO clients.DriverForTLVProcessor  - Closed TLVProcessorService...Exiting now.
+0 [main] INFO services.TLVProcessorService  - - x - End of Output - x -
+0 [main] INFO services.ReaderForStdIn  - Closing Reader class... services.ReaderForStdIn
+0 [main] INFO services.WriterForStdOut  - Closing Writer class... services.WriterForStdOut

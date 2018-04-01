@@ -3,10 +3,13 @@ package services;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import models.Format;
+import models.FormatData;
+import models.ProcessType;
 
 public class ReaderForStdIn extends AbstractReaderForProcessor{
 	public static final Logger logger = Logger.getLogger(ReaderForStdIn.class);
@@ -17,26 +20,29 @@ public class ReaderForStdIn extends AbstractReaderForProcessor{
 		this.br = new BufferedReader(new InputStreamReader(System.in));
 	}
 
-	
-	public void finalize(){
+	@Override
+	public void close(){
 		try {
+			logger.info("Closing Reader class... " + getClass().getName());
 			br.close();
-
 		} catch (Exception exception) {
 			logger.warn("Exception occurred while closing BufferedReader", exception);
 		}
 	}
 
 	@Override
-	public Format readFormatData() {
+	public List<FormatData> readListOfFormatData() {
 		
 		try {
 			String input = br.readLine();
 			if(input != null) {
-				return Format.createObjectFromString(input);
-			} else
-				return null;
-			
+				List<FormatData> listOfFormats = new ArrayList<FormatData>();
+				String[] arrayOfInputs = input.split("(?="+ProcessType.LOWRCS.name()+")|(?="+ProcessType.REPLCE.name()+")|(?="+ProcessType.UPPRCS.name()+")");
+				for(String formatString : arrayOfInputs) {
+					listOfFormats.add(FormatData.createObjectFromString(formatString));
+				}
+				return listOfFormats;
+			} 
 		} catch (IOException ioe) {
 			logger.error("Exception occurred while reading data from BufferedReader", ioe);
 		}

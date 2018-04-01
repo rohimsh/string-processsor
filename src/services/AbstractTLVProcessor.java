@@ -1,5 +1,6 @@
 package services;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -9,7 +10,7 @@ import exceptions.WriterNotConfiguredException;
 import interfaces.IReaderForProcessor;
 import interfaces.ITLVProcessor;
 import interfaces.IWriterForProcessor;
-import models.Format;
+import models.FormatData;
 import models.IOType;
 
 public class AbstractTLVProcessor implements ITLVProcessor{
@@ -51,12 +52,12 @@ public class AbstractTLVProcessor implements ITLVProcessor{
 
 	
 	@Override
-	public boolean processFormats(List<Format> listOfFormats) {
-		return false;
+	public List<String> processFormats(List<FormatData> listOfFormats) {
+		return Collections.EMPTY_LIST;
 	}
 
 	@Override
-	public String processFormat(Format format) {
+	public String processFormat(FormatData format) {
 		return StringUtils.EMPTY;
 	}
 
@@ -64,9 +65,9 @@ public class AbstractTLVProcessor implements ITLVProcessor{
 	public void process() {
 	}
 
-	public void close() {
-		this.reader = null;
-		this.writer = null;
+	public void closeStreams() {
+		this.reader.close();
+		this.writer.close();
 	}
 	
 

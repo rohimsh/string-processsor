@@ -8,4 +8,6 @@ public interface IWriterForProcessor {
 
 	public void writeFormatData(String result);
 
+	public void close();
+
 }

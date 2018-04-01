@@ -1,12 +1,14 @@
 package interfaces;
 
 import java.util.List;
-import models.Format;
+import models.FormatData;
 
 public interface IReaderForProcessor {
 
-	public List<Format> readListOfFormatData();
+	public List<FormatData> readListOfFormatData();
 	
-	public Format readFormatData();
+	public FormatData readFormatData();
+	
+	public void close();
 
 }

@@ -3,6 +3,7 @@ package services;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -16,22 +17,28 @@ public class WriterForStdOut extends AbstractWriterForProcessor{
 		this.bw = new BufferedWriter(new OutputStreamWriter(System.out));
 	}
 
-	public void finalize(){
+	@Override
+	public void close(){
 		try {
+			logger.info("Closing Writer class... " + getClass().getName());
+			bw.flush();
 			bw.close();
-
 		} catch (Exception exception) {
 			logger.warn("Exception occurred while closing BufferedWriter", exception);
 		}
 	}
 	
+	
+	
 	@Override
-	public void writeFormatData(String output) {
+	public void writeListOfFormatData(List<String> output) {
 		
 		try {
 			if(output != null) {
-				bw.write(output);
-				bw.flush();
+				for(String result : output) {
+					bw.write(result);
+					bw.flush();
+				}
 			}
 			
 		} catch (IOException ioe) {

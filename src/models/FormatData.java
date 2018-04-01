@@ -1,6 +1,6 @@
 package models;
 
-public class Format {
+public class FormatData {
 	public static final String SEPARATOR = "-";
 
 	
@@ -31,10 +31,10 @@ public class Format {
 		return "Format [formatType=" + formatType + ", length=" + length + ", value=" + value + "]";
 	}
 	
-	public static Format createObjectFromString(String input) {
+	public static FormatData createObjectFromString(String input) {
 		try {
 			String[] splitVals = input.split(SEPARATOR);
-			Format format = new Format();
+			FormatData format = new FormatData();
 			try {
 				format.setFormatType(ProcessType.valueOf(splitVals[0]));
 			} catch (IllegalArgumentException iae) {
@@ -48,8 +48,8 @@ public class Format {
 		}
 	}
 	
-	public static Format emptyObject() {
-		return new Format();
+	public static FormatData emptyObject() {
+		return new FormatData();
 	}
 
 }

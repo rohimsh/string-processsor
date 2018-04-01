@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -7,7 +8,7 @@ import org.apache.log4j.Logger;
 
 import exceptions.ReaderNotConfiguredException;
 import exceptions.WriterNotConfiguredException;
-import models.Format;
+import models.FormatData;
 import models.IOType;
 import models.ProcessType;
 
@@ -21,33 +22,41 @@ public class TLVProcessorService extends AbstractTLVProcessor{
 
 	@Override
 	public void process() {
-		logger.info("- x - Start of Output - x -");
-		Format formatToProcess = Format.emptyObject();
-		String processedFormatData = StringUtils.EMPTY;
-		while((formatToProcess = getReader().readFormatData()) != null) {
-			processedFormatData = processFormat(formatToProcess);
-			getWriter().writeFormatData(processedFormatData);
+		try {
+
+			logger.info("- x - Start of Output - x -");
+			List<FormatData> formatsToProcess;
+			List<String> processedFormatData;
+			while((formatsToProcess = getReader().readListOfFormatData()) != null) {
+				processedFormatData = processFormats(formatsToProcess);
+				getWriter().writeListOfFormatData(processedFormatData);
+			}
+			logger.info("- x - End of Output - x -");
+			
+		} catch (Exception e) {
+			logger.error("Error occurred while processing formats from InputStream: ", e);
+		} finally {
+			closeStreams();
 		}
-		logger.info("- x - End of Output - x -");
 	}
 	
 	
 	@Override
-	public boolean processFormats(List<Format> listOfFormats) {
+	public List<String> processFormats(List<FormatData> listOfFormats) {
+		List<String> resultsAfterProcessing = new ArrayList<String>(listOfFormats.size());
 		try {
-			for(Format format : listOfFormats) {
-				processFormat(format);
+			for(FormatData format : listOfFormats) {
+				resultsAfterProcessing.add(processFormat(format));
 			}
-			return true;
 		} catch (Exception e) {
 			logger.error("Error occurred while processing batch of formats: ", e);
 		}
 		
-		return false;
+		return resultsAfterProcessing;
 	}
 	
 	@Override
-	public String processFormat(Format format) {
+	public String processFormat(FormatData format) {
 		String processedResult = TYPE_NOT_VALID;
 		ProcessType processType = format.getFormatType();
 		
@@ -80,7 +89,7 @@ public class TLVProcessorService extends AbstractTLVProcessor{
 		StringBuffer sb = new StringBuffer();
 		
 		if(type != null) {
-			sb.append(type.name()).append(Format.SEPARATOR).append(value);
+			sb.append(type.name()).append(FormatData.SEPARATOR).append(value);
 		} else {
 			sb.append(value);
 		}

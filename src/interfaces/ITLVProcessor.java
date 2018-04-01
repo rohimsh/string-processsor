@@ -2,13 +2,13 @@ package interfaces;
 
 import java.util.List;
 
-import models.Format;
+import models.FormatData;
 
 public interface ITLVProcessor {
 
-	public boolean processFormats(List<Format> listOfFormats);
+	public List<String> processFormats(List<FormatData> listOfFormats);
 	
-	public String processFormat(Format format);
+	public String processFormat(FormatData format);
 	
 	public void process();
 
