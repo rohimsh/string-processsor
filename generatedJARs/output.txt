@@ -1,0 +1,12 @@
+0 [main] INFO clients.DriverForTLVProcessor  - Configgered logging...
+1 [main] INFO clients.DriverForTLVProcessor  - Starting TLVProcessorService...
+4 [main] INFO clients.DriverForTLVProcessor  - Processing TLVProcessorService for Input Type: STDIN and Output Type: STDOUT
+4 [main] INFO services.TLVProcessorService  - - x - Start of Output - x -
+UPPRCS-ABCDE
+REPLCE-THIS STRING
+UPPRCS-ABCDEFGH
+Type not valid
+UPPRCS-1234
+6 [main] INFO services.TLVProcessorService  - - x - End of Output - x -
+6 [main] INFO clients.DriverForTLVProcessor  - Processed TLVProcessorService...
+6 [main] INFO clients.DriverForTLVProcessor  - Closed TLVProcessorService...Exiting now.
